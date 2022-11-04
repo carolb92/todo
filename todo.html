@@ -27,13 +27,16 @@
                     return (
                         <div className="list">
                             <h1>To-Do List</h1>
+                            <hr className="heading"/>
                             <ul>
                                 {this.state.tasks.map((task, i) => 
                                     <li key={i}>
                                         <button className="delete" onClick={() => this.deleteTask(i)}>Delete</button> 
                                         {task}
+                                        <hr className="item"/>
                                     </li>
                                 )}
+                                
                             </ul>
                             
                             <p>Current number of tasks: {this.state.tasks.length}</p>
@@ -92,6 +95,12 @@
             text-align: center;
         }
 
+        .heading {
+            height: 1px;
+            border: none;
+            background-color: #F94C61;
+        }
+
         h1{
             font-family: 'Permanent Marker', cursive;
             font-size: 36px;
@@ -108,8 +117,18 @@
             font-family: 'Montserrat', sans-serif;
         }
 
+        ul {
+            padding-left:20px;
+        }
+
         li {
             text-align: left;
+        }
+
+        .item {
+            height: 1px;
+            border: none;
+            background-color: lightblue;
         }
 
         .delete {
