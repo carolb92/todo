@@ -7,6 +7,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Permanent+Marker&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
         <title>To-Do</title>
     </head>
     <body>
@@ -31,8 +32,8 @@
                             <ul>
                                 {this.state.tasks.map((task, i) => 
                                     <li key={i}>
-                                        <button className="delete" onClick={() => this.deleteTask(i)}>Delete</button> 
                                         {task}
+                                        <button className="delete" onClick={() => this.deleteTask(i)}>Delete</button> 
                                         <hr className="item"/>
                                     </li>
                                 )}
@@ -80,85 +81,25 @@
                        }
                     });
                 }
+
+                componentDidUpdate(){
+                    const savedTasksString = JSON.stringify(this.state.tasks);
+                    localStorage.setItem("savedTasks", savedTasksString);
+                }
+
+                componentDidMount(){
+                    const savedTasksString = localStorage.getItem("savedTasks");
+                    if (savedTasksString){
+                        const savedTasks = JSON.parse(savedTasksString);
+                        this.setState({ tasks: savedTasks });
+                    }
+                }
             }
 
             ReactDOM.render(<App />, document.querySelector("#app"));
 
         </script>
     </body>
-    <style>
-        #app{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-
-        .heading {
-            height: 1px;
-            border: none;
-            background-color: #F94C61;
-        }
-
-        h1{
-            font-family: 'Permanent Marker', cursive;
-            font-size: 36px;
-        }
-
-        .list {
-            background-color: lightyellow;
-            border: 1px solid lightgray;
-            border-radius: 20px;
-            padding: 0px 40px 40px 40px;
-        }
-
-        ul,li,p,button{
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        ul {
-            padding-left:20px;
-        }
-
-        li {
-            text-align: left;
-        }
-
-        .item {
-            height: 1px;
-            border: none;
-            background-color: lightblue;
-        }
-
-        .delete {
-            margin-bottom:3px;
-            margin-right:10px;
-            border-radius: 5px;
-            border-style: outset;
-            border-width: 1px;
-        }
-
-        .delete:hover {
-            background: lightgray;
-        }
-
-        input {
-            border-radius: 5px;
-            border-color: lightgray;
-            margin-right: 5px;
-        }
-
-        .add {
-            border-radius: 5px;
-            border-width: 1px;
-        }
-
-        .add:hover {
-            background: lightgray;
-        }
-       
-    </style>
 </html>
 
 <!-- TO DO
